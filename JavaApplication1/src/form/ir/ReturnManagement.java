@@ -158,7 +158,7 @@ public class ReturnManagement extends javax.swing.JFrame {
         };
         btnRemove = new ClButtonTransparan("Return");
         btReturn = new ClButtonTransparan("Return");
-        jPanel4 = new ClPanelTransparent();
+        javax.swing.JPanel jPanel4 = new ClPanelTransparent();
         jPanel3 = new javax.swing.JPanel();
         pnlImgMember = new javax.swing.JPanel();
         lblImgMember = new javax.swing.JLabel();
@@ -569,7 +569,6 @@ public class ReturnManagement extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
@@ -583,7 +582,7 @@ public class ReturnManagement extends javax.swing.JFrame {
     private javax.swing.JPanel pnlBackground;
     private javax.swing.JPanel pnlImgMember;
     private javax.swing.JPanel pnlReturn;
-    private javax.swing.JTable tblReturn;
+    protected javax.swing.JTable tblReturn;
     private javax.swing.JTextField txtMemberNo;
     // End of variables declaration//GEN-END:variables
 }
