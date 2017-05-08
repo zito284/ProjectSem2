@@ -1,4 +1,5 @@
 package form.member;
+
 import ExSwing.ClPanelTransparent;
 import Helpers.Fine;
 import Helpers.UIHelper;
@@ -22,36 +23,36 @@ import javax.swing.table.DefaultTableModel;
 import org.openide.util.Exceptions;
 
 public class Members extends javax.swing.JFrame {
+
     DefaultTableModel tableModel;
     Vector row;
+
     public Members() {
         initComponents();
-        //Debug components
         lblFileName.setVisible(false);
         jLabel7.setVisible(false);
         txtID.setVisible(false);
         tblFine.setDefaultEditor(Object.class, null);
         tblIssued.setDefaultEditor(Object.class, null);
         tblMemList.setDefaultEditor(Object.class, null);
-
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         UIHelper.bindBackground(pnlBackground);
         this.setTitle("Member Manage");
         start();
-        
+
     }
-    
-    public void start(){
+
+    public void start() {
         setNormalMode();
-        getList();   
+        getList();
     }
-    
-    private void getList(){
+
+    private void getList() {
         tblMemList.setModel(Model.Members.Mems_getMemberList());
         tblMemList.removeColumn(tblMemList.getColumnModel().getColumn(0));
     }
-    
-    public void setNormalMode(){
+
+    public void setNormalMode() {
         txtID.setEnabled(false);
         txtNo.setEnabled(false);
         btnChange.setEnabled(false);
@@ -61,8 +62,8 @@ public class Members extends javax.swing.JFrame {
         txtAddress.setEnabled(false);
         txtDepartment.setEnabled(false);
         lblRegdate.setEnabled(false);
-        cbStatus.setEnabled(false);     
-        
+        cbStatus.setEnabled(false);
+
         txtID.setEditable(false);
         txtNo.setEditable(false);
         txtFirstname.setEditable(false);
@@ -71,7 +72,7 @@ public class Members extends javax.swing.JFrame {
         txtDepartment.setEditable(false);
         txtAddress.setEditable(false);
         cbStatus.setEditable(false);
-        
+
         lblFileName.setText(null);
         txtID.setText(null);
         txtNo.setText(null);
@@ -81,21 +82,21 @@ public class Members extends javax.swing.JFrame {
         txtDepartment.setText(null);
         txtAddress.setText(null);
         lblRegdate.setText(null);
-        
+
         lblMemAvatar.setIcon(null);
         btnDelete.setEnabled(false);
         btnChange.setEnabled(false);
         btnUpdate.setEnabled(false);
-        
+
         btnSaveUpdate.setVisible(false);
         btnSaveAdd.setEnabled(false);
         btnSaveAdd.setVisible(true);
         btnCancel.setEnabled(false);
-        
+
         tblMemList.clearSelection();
     }
-    
-    public void setSelectedMode(){
+
+    public void setSelectedMode() {
         txtID.setEnabled(false);
         txtNo.setEnabled(false);
         btnChange.setEnabled(false);
@@ -106,8 +107,7 @@ public class Members extends javax.swing.JFrame {
         txtAddress.setEnabled(true);
         lblRegdate.setEnabled(true);
         cbStatus.setEnabled(true);
-        
-        
+
         txtID.setEditable(false);
         txtNo.setEditable(false);
         txtFirstname.setEditable(false);
@@ -117,19 +117,18 @@ public class Members extends javax.swing.JFrame {
         txtAddress.setEditable(false);
         cbStatus.setEditable(false);
         cbStatus.setEnabled(false);
-        
-        
+
         btnDelete.setEnabled(true);
         btnChange.setEnabled(false);
         btnUpdate.setEnabled(true);
-        
+
         btnSaveUpdate.setVisible(false);
         btnSaveAdd.setVisible(true);
         btnSaveAdd.setEnabled(false);
         btnCancel.setEnabled(false);
     }
-    
-    public void setUpdateMode(){
+
+    public void setUpdateMode() {
         txtID.setEnabled(false);
         txtNo.setEnabled(false);
         btnChange.setEnabled(true);
@@ -140,8 +139,7 @@ public class Members extends javax.swing.JFrame {
         txtAddress.setEnabled(true);
         lblRegdate.setEnabled(true);
         cbStatus.setEnabled(true);
-       
-        
+
         txtID.setEditable(false);
         txtNo.setEditable(true);
         txtFirstname.setEditable(true);
@@ -150,18 +148,17 @@ public class Members extends javax.swing.JFrame {
         txtDepartment.setEditable(true);
         txtAddress.setEditable(true);
         cbStatus.setEditable(true);
-       
-        
+
         btnDelete.setEnabled(false);
         btnChange.setEnabled(true);
         btnUpdate.setEnabled(false);
-        
+
         btnSaveUpdate.setVisible(true);
         btnSaveAdd.setVisible(false);
         btnCancel.setEnabled(true);
     }
-    
-    public void setAddNewMode(){
+
+    public void setAddNewMode() {
         txtID.setEnabled(false);
         txtNo.setEnabled(false);
         btnChange.setEnabled(true);
@@ -172,8 +169,7 @@ public class Members extends javax.swing.JFrame {
         txtAddress.setEnabled(true);
         lblRegdate.setEnabled(true);
         cbStatus.setEnabled(true);
-  
-        
+
         txtID.setEditable(false);
         txtNo.setEditable(true);
         txtFirstname.setEditable(true);
@@ -182,8 +178,7 @@ public class Members extends javax.swing.JFrame {
         txtDepartment.setEditable(true);
         txtAddress.setEditable(true);
         cbStatus.setEnabled(false);
-        
-                
+
         txtID.setText("Auto Generate");
         txtNo.setText("Auto Generate");
         txtFirstname.setText(null);
@@ -192,37 +187,37 @@ public class Members extends javax.swing.JFrame {
         txtDepartment.setText(null);
         txtAddress.setText(null);
         lblRegdate.setText(null);
-        
+
         lblMemAvatar.setIcon(null);
         btnDelete.setEnabled(false);
         btnChange.setEnabled(true);
         btnUpdate.setEnabled(false);
-        
+
         btnSaveUpdate.setVisible(false);
         btnSaveAdd.setVisible(true);
         btnSaveAdd.setEnabled(true);
         btnCancel.setEnabled(true);
-        
+
         tblMemList.clearSelection();
     }
-    
+
     private static void copyFile(File source, File dest) throws IOException {
-            InputStream input = null;
-            OutputStream output = null;
-            try {
-                    input = new FileInputStream(source);
-                    output = new FileOutputStream(dest);
-                    byte[] buf = new byte[1024];
-                    int bytesRead;
-                    while ((bytesRead = input.read(buf)) > 0) {
-                            output.write(buf, 0, bytesRead);
-                    }
-            } finally {
-                    input.close();
-                    output.close();
+        InputStream input = null;
+        OutputStream output = null;
+        try {
+            input = new FileInputStream(source);
+            output = new FileOutputStream(dest);
+            byte[] buf = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = input.read(buf)) > 0) {
+                output.write(buf, 0, bytesRead);
             }
+        } finally {
+            input.close();
+            output.close();
+        }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -797,82 +792,77 @@ public class Members extends javax.swing.JFrame {
     private void btnSaveAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAddActionPerformed
         Model.Members obj;
         obj = new Model.Members();
-        
+
         obj.Mem_FirstName = txtFirstname.getText();
         obj.Mem_LastName = txtLastname.getText();
         obj.Mem_Phone = txtPhone.getText();
-        obj.Mem_Address  = txtAddress.getText();
+        obj.Mem_Address = txtAddress.getText();
         obj.Mem_Dep = txtDepartment.getText();
-        
-        
-        if (txtFirstname.getText().isEmpty()){
+
+        if (txtFirstname.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "First Name cannot be NULL");
             txtFirstname.requestFocus();
             return;
-        } else if(txtFirstname.getText().length()>30){
+        } else if (txtFirstname.getText().length() > 30) {
             JOptionPane.showMessageDialog(null, "First Name cannot be longer than 30 chars");
             txtFirstname.requestFocus();
             return;
-        }        
-         if (txtLastname.getText().isEmpty()){
+        }
+        if (txtLastname.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Last Name cannot be NULL");
             txtLastname.requestFocus();
             return;
-        } else if(txtLastname.getText().length()>50){
+        } else if (txtLastname.getText().length() > 50) {
             JOptionPane.showMessageDialog(null, "Last Name cannot be longer than 50 chars");
             txtLastname.requestFocus();
             return;
-        }                      
-        if (txtDepartment.getText().isEmpty()){
+        }
+        if (txtDepartment.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Department cannot be NULL");
             txtDepartment.requestFocus();
             return;
-        } else if(txtDepartment.getText().length()>50){
+        } else if (txtDepartment.getText().length() > 50) {
             JOptionPane.showMessageDialog(null, "Department cannot be longer than 50 chars");
             txtDepartment.requestFocus();
             return;
-        }        
-        if(cbStatus.getSelectedIndex() == -1){
+        }
+        if (cbStatus.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "Please choose a Status");
             cbStatus.requestFocus();
             return;
-        }            
-        if ((String)cbStatus.getSelectedItem() == "Active"){
+        }
+        if ((String) cbStatus.getSelectedItem() == "Active") {
             obj.Mem_Status = true;
         } else {
             obj.Mem_Status = false;
-        }        
-        if(txtAddress.getText().isEmpty()){
+        }
+        if (txtAddress.getText().isEmpty()) {
             obj.Mem_Address = "";
         }
-      
-        //Copy file to imgBook folder
-        if(lblMemAvatar.getIcon() == null){
+        if (lblMemAvatar.getIcon() == null) {
             obj.Mem_ImageFile = "imgMem/MemNoAvatar.png";
         } else {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
             String newfilename = sdf.format(Calendar.getInstance().getTime());
             File labelicon = new File(lblFileName.getText());
-            File desfile = new File("imgMem\\"+newfilename+"_"+labelicon.getName());
+            File desfile = new File("imgMem\\" + newfilename + "_" + labelicon.getName());
             try {
                 copyFile(labelicon, desfile);
             } catch (IOException ex) {
                 Exceptions.printStackTrace(ex);
             }
-        obj.Mem_ImageFile = "imgMem/"+desfile.getName();
+            obj.Mem_ImageFile = "imgMem/" + desfile.getName();
         }
-               
         int rt = Model.Members.Members_Insert(obj);
-        if(rt == 1){
+        if (rt == 1) {
             setAddNewMode();
             getList();
-        }else if(rt == 0){
+        } else if (rt == 0) {
             txtNo.requestFocus();
-        }else if(rt == 3){
+        } else if (rt == 3) {
             txtDepartment.requestFocus();
         }
         MessageHandle.showMessage(MessageHandle.Obj_Member, MessageHandle.Action_insert, rt);
-        
     }//GEN-LAST:event_btnSaveAddActionPerformed
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
@@ -880,26 +870,25 @@ public class Members extends javax.swing.JFrame {
         JFileChooser fc = new JFileChooser();
         fc.showOpenDialog(null);
         File sourcefile = fc.getSelectedFile();
-        ImageIcon newIcon = new ImageIcon(sourcefile.getPath());        
+        ImageIcon newIcon = new ImageIcon(sourcefile.getPath());
         lblMemAvatar.setIcon(new ImageIcon(newIcon.getImage().getScaledInstance(lblMemAvatar.getWidth(), lblMemAvatar.getHeight(), SCALE_SMOOTH)));
         lblFileName.setText(sourcefile.getPath());
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void tblMemListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMemListMouseClicked
-        setSelectedMode();              
+        setSelectedMode();
         int line = tblMemList.getSelectedRow();
         DefaultTableModel tbm = new DefaultTableModel();
         tbm = (DefaultTableModel) tblMemList.getModel();
-        String memId = (String)tbm.getValueAt(line, 0);
-        //System.out.println(memid);
-        Model.Members mem = Model.Members.Members_getMemberByMemberId(memId);  
-        DefaultTableModel tbm2=IRBooks.ListByMemberNo(mem.Mem_No);
+        String memId = (String) tbm.getValueAt(line, 0);
+        Model.Members mem = Model.Members.Members_getMemberByMemberId(memId);
+        DefaultTableModel tbm2 = IRBooks.ListByMemberNo(mem.Mem_No);
         tblFine.setModel(tbm2);
         UIHelper.hideColumnOfTable(tblFine, 0);
-        DefaultTableModel tbm3=IRBooks.getListBookByMemNo(mem.Mem_No);
+        DefaultTableModel tbm3 = IRBooks.getListBookByMemNo(mem.Mem_No);
         tblIssued.setModel(tbm3);
         UIHelper.hideColumnOfTable(tblIssued, 0);
-        lblTotalFine.setText("Total: $"+Fine.calculateTotal(tblFine,8));
+        lblTotalFine.setText("Total: $" + Fine.calculateTotal(tblFine, 8));
         txtID.setText(mem.Mem_Id);
         txtNo.setText(mem.Mem_No);
         txtFirstname.setText(mem.Mem_FirstName);
@@ -908,7 +897,7 @@ public class Members extends javax.swing.JFrame {
         txtDepartment.setText(mem.Mem_Dep);
         txtAddress.setText(mem.Mem_Address);
         lblRegdate.setText(mem.Mem_CreateDate);
-        if(mem.Mem_Status == false){
+        if (mem.Mem_Status == false) {
             cbStatus.setSelectedItem("Inactive");
         } else {
             cbStatus.setSelectedItem("Active");
@@ -924,118 +913,107 @@ public class Members extends javax.swing.JFrame {
     private void btnSaveUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveUpdateActionPerformed
         Model.Members obj;
         obj = new Model.Members();
-        
-        //obj.Mem_No = txtNo.getText();
         String memid = txtID.getText();
         obj.Mem_FirstName = txtFirstname.getText();
         obj.Mem_LastName = txtLastname.getText();
         obj.Mem_Phone = txtPhone.getText();
-        obj.Mem_Address  = txtAddress.getText();
+        obj.Mem_Address = txtAddress.getText();
         obj.Mem_Dep = txtDepartment.getText();
-        
-        //Copy file to imgBook folder
-        
-        
-        if(lblFileName.getText() == null){
+
+        if (lblFileName.getText() == null) {
             obj.Mem_ImageFile = lblMemAvatar.getIcon().toString();
-        }else{
-            if(lblMemAvatar.getIcon() == null){
-            obj.Mem_ImageFile = "imgMem/MemNoAvatar.png";
         } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-            String newfilename = sdf.format(Calendar.getInstance().getTime());
-            File labelicon = new File(lblFileName.getText());
-            File desfile = new File("imgMem/"+newfilename+"_"+labelicon.getName());
-            try {
-                copyFile(labelicon, desfile);
-            } catch (IOException ex) {
-                Exceptions.printStackTrace(ex);
+            if (lblMemAvatar.getIcon() == null) {
+                obj.Mem_ImageFile = "imgMem/MemNoAvatar.png";
+            } else {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                String newfilename = sdf.format(Calendar.getInstance().getTime());
+                File labelicon = new File(lblFileName.getText());
+                File desfile = new File("imgMem/" + newfilename + "_" + labelicon.getName());
+                try {
+                    copyFile(labelicon, desfile);
+                } catch (IOException ex) {
+                    Exceptions.printStackTrace(ex);
+                }
+                obj.Mem_ImageFile = "imgMem/" + desfile.getName();
             }
-            obj.Mem_ImageFile = "imgMem/" + desfile.getName();
         }
-        }
-        
-        //Ket thuc phan upload Image
-        
-        if(cbStatus.getSelectedItem() == "Active"){
+
+        if (cbStatus.getSelectedItem() == "Active") {
             obj.Mem_Status = true;
         } else if (cbStatus.getSelectedItem() == "Inactive") {
             obj.Mem_Status = false;
         }
-        
-        
-        
-        if (txtFirstname.getText().isEmpty()){
+        if (txtFirstname.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "First Name cannot be NULL");
             txtFirstname.requestFocus();
             return;
-        } else if(txtFirstname.getText().length()>30){
+        } else if (txtFirstname.getText().length() > 30) {
             JOptionPane.showMessageDialog(null, "First Name cannot be longer 30 chars");
             txtFirstname.requestFocus();
             return;
         }
-        
-         if (txtLastname.getText().isEmpty()){
+
+        if (txtLastname.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Last Name cannot be NULL");
             txtLastname.requestFocus();
             return;
-        } else if(txtLastname.getText().length()>50){
+        } else if (txtLastname.getText().length() > 50) {
             JOptionPane.showMessageDialog(null, "Last Name cannot be longer 50 chars");
             txtLastname.requestFocus();
             return;
         }
-         
-               
-        if (txtDepartment.getText().isEmpty()){
+
+        if (txtDepartment.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Department cannot be NULL");
             txtDepartment.requestFocus();
             return;
-        } else if(txtDepartment.getText().length()>50){
+        } else if (txtDepartment.getText().length() > 50) {
             JOptionPane.showMessageDialog(null, "Department cannot be longer 50 chars");
             txtDepartment.requestFocus();
             return;
-        }        
-        if(cbStatus.getSelectedIndex() == -1){
+        }
+        if (cbStatus.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "Please choose a Status");
             cbStatus.requestFocus();
             return;
         }
-        obj.Mem_Status = (String)cbStatus.getSelectedItem() == "Active";
-        
-        if(txtAddress.getText().isEmpty()){
+        obj.Mem_Status = (String) cbStatus.getSelectedItem() == "Active";
+
+        if (txtAddress.getText().isEmpty()) {
             obj.Mem_Address = "";
         }
         int rt = Model.Members.Members_Update(obj, memid);
-        if(rt == 1){
+        if (rt == 1) {
             setNormalMode();
             getList();
-        }else if(rt == 0){
+        } else if (rt == 0) {
             txtNo.requestFocus();
-        }else if(rt == 3){
+        } else if (rt == 3) {
             txtDepartment.requestFocus();
         }
         MessageHandle.showMessage(MessageHandle.Obj_Member, MessageHandle.Action_update, rt);
-        
+
     }//GEN-LAST:event_btnSaveUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         String Mem_Id = txtID.getText();
         int del = Model.Members.Members_Lock(Mem_Id);
-        MessageHandle.showMessage(MessageHandle.Obj_Member,MessageHandle.Action_delete, del);  
+        MessageHandle.showMessage(MessageHandle.Obj_Member, MessageHandle.Action_delete, del);
         getList();
-        
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtSearchNoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchNoKeyReleased
-        String MemNo=txtSearchNo.getText();
-        String Name=txtSearchName.getText();
+        String MemNo = txtSearchNo.getText();
+        String Name = txtSearchName.getText();
         tblMemList.setModel(Model.Members.getAllMemByFilter(MemNo, Name));
         tblMemList.removeColumn(tblMemList.getColumnModel().getColumn(0));
     }//GEN-LAST:event_txtSearchNoKeyReleased
 
     private void txtSearchNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchNameKeyReleased
-        String MemNo=txtSearchNo.getText();
-        String Name=txtSearchName.getText();
+        String MemNo = txtSearchNo.getText();
+        String Name = txtSearchName.getText();
         tblMemList.setModel(Model.Members.getAllMemByFilter(MemNo, Name));
         tblMemList.removeColumn(tblMemList.getColumnModel().getColumn(0));
     }//GEN-LAST:event_txtSearchNameKeyReleased

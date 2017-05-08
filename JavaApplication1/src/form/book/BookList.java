@@ -165,7 +165,6 @@ public class BookList extends javax.swing.JFrame {
 
     public void loadListCategory() {
         tblCategoryList.setModel(Model.Categories.Categories_getCategoryListWithBookNumber());
-        //UIHelper.hideColumnOfTable(tblCategoryList, 0);
     }
 
     public void setColumnWidth() {
@@ -265,7 +264,7 @@ public class BookList extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Book Managment");
+        setTitle("Book Management");
         setMinimumSize(new java.awt.Dimension(1240, 620));
 
         pnlBackground.setPreferredSize(new java.awt.Dimension(1240, 595));
@@ -856,7 +855,6 @@ public class BookList extends javax.swing.JFrame {
 
     private void btnNewBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewBookActionPerformed
         setAddNewMode();
-
     }//GEN-LAST:event_btnNewBookActionPerformed
 
     private void tblCategoryListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategoryListMouseClicked
@@ -866,7 +864,7 @@ public class BookList extends javax.swing.JFrame {
         tbm = (DefaultTableModel) tblCategoryList.getModel();
         String catename = (String) tbm.getValueAt(line, 1);
         tblBookList.setModel(Model.Books.Books_getBookListByCatename(catename));
-        
+
     }//GEN-LAST:event_tblCategoryListMouseClicked
 
     private void tblBookListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBookListMouseClicked
@@ -895,19 +893,17 @@ public class BookList extends javax.swing.JFrame {
 
         ImageIcon icon = new ImageIcon(obj.Book_ImageFile);
         lblCover.setIcon(icon);
-        DefaultTableModel tbm2=Copies.getCopyListByISBN(isbn);
+        DefaultTableModel tbm2 = Copies.getCopyListByISBN(isbn);
         tblCopies.setModel(tbm2);
         UIHelper.hideColumnOfTable(tblCopies, 0);
-        
-        
+
+
     }//GEN-LAST:event_tblBookListMouseClicked
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         Books obj = new Books();
-        //checkDuplicateISBN(txtISBN.getText());   
         checkFormBeforeSave();
         newISBN();
-        //Get data from form and add to Object
         obj.Book_ISBN = txtISBN.getText();
         obj.Book_Title = txtTitle.getText();
         obj.Book_Author = txtAuthor.getText();
@@ -918,17 +914,12 @@ public class BookList extends javax.swing.JFrame {
                 (String) cboCategory.getSelectedItem()).Cat_Id;
         obj.Book_Language = (String) cboLang.getSelectedItem();
         obj.Book_isDeleted = false;
-
-        //Copy file to imgBook folder
         if (lblFileName.getText() == null) {
             obj.Book_ImageFile = "imgBook/Nocover.jpg";
         } else {
             String fileName = lblCover.getIcon().toString();
             obj.Book_ImageFile = "imgBook/" + uploadImage(fileName);
         }
-        //Ket thuc phan upload Image
-
-        //addCopies();
         if (txtNumberOfCopies.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Must enter at least one copy");
             txtNumberOfCopies.requestFocus();
@@ -943,7 +934,6 @@ public class BookList extends javax.swing.JFrame {
                 txtNumberOfCopies.requestFocus();
                 return;
             } else {
-                //Insert Books
                 int isSuccess = Model.Books.Books_Insert(obj);
                 MessageHandle.showMessage(MessageHandle.Obj_Book, MessageHandle.Action_insert, isSuccess);
 
@@ -983,12 +973,9 @@ public class BookList extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnChangeCoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeCoverActionPerformed
-        //Chọn file hình và lấy đường dẫn
         JFileChooser fc = new JFileChooser();
         fc.showOpenDialog(null);
         File sourefile = fc.getSelectedFile();
-
-        //Set image vào label cover
         ImageIcon newIcon = new ImageIcon(sourefile.getPath());
         lblCover.setIcon(newIcon);
         lblFileName.setText(sourefile.getPath());
@@ -1071,7 +1058,6 @@ public class BookList extends javax.swing.JFrame {
         if (txaContent.getText().isEmpty()) {
             obj.Book_Content = "";
         }
-        //Copy file to imgBook folder
         if (lblFileName.getText() == null) {
             obj.Book_ImageFile = lblCover.getIcon().toString();
         } else {
@@ -1090,8 +1076,6 @@ public class BookList extends javax.swing.JFrame {
                 obj.Book_ImageFile = "imgBook/" + desfile.getName();
             }
         }
-        //Ket thuc phan upload Image
-
         if (!txtNumberOfCopies.getText().isEmpty()) {
             if (Integer.parseInt(txtNumberOfCopies.getText()) <= 0) {
                 JOptionPane.showMessageDialog(null, "Number of copies must be greater 0");
@@ -1102,7 +1086,6 @@ public class BookList extends javax.swing.JFrame {
                 txtNumberOfCopies.requestFocus();
                 return;
             } else {
-                //Insert Books
                 int isSuccess = Model.Books.Books_Update(obj, txtISBN.getText());
                 MessageHandle.showMessage(MessageHandle.Obj_Book, MessageHandle.Action_update, isSuccess);
 
@@ -1111,15 +1094,12 @@ public class BookList extends javax.swing.JFrame {
                 int numberofcopies = Integer.parseInt(txtNumberOfCopies.getText());
                 for (int i = 1; i <= numberofcopies; i++) {
                     objCopies.Book_ISBN = txtISBN.getText();
-
                     SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
                     String copno = sdf.format(Calendar.getInstance().getTime());
-
                     if (i >= 100) {
                         numi = Integer.toString(i);
                         objCopies.Cop_No = copno + numi;
                         int a = Model.Copies.Copies_Insert(objCopies);
-
                     } else if (i >= 10) {
                         numi = "0" + Integer.toString(i);
                         objCopies.Cop_No = copno + numi;
@@ -1147,7 +1127,6 @@ public class BookList extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveUpdateActionPerformed
 
     private void txtISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtISBNActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtISBNActionPerformed
 
     private void txtSearchISBNKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchISBNKeyReleased
@@ -1166,54 +1145,18 @@ public class BookList extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSearchAuthorKeyReleased
 
     private void btnDeleteCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCopyActionPerformed
-        int index=tblCopies.getSelectedRow();
-        if (index!=-1)
-        {
-            String isbn=String.valueOf(tblCopies.getModel().getValueAt(index, 1));
-            String Cop_Id=String.valueOf(tblCopies.getModel().getValueAt(index, 0));
-            int success=Copies.Copies_DeleteCopiesByCopyId(Cop_Id);
-            MessageHandle.showMessage(MessageHandle.Obj_Book, MessageHandle.Action_delete, success);            
-        DefaultTableModel tbm2=Copies.getCopyListByISBN(isbn);
-        tblCopies.setModel(tbm2);
-        UIHelper.hideColumnOfTable(tblCopies, 0);
+        int index = tblCopies.getSelectedRow();
+        if (index != -1) {
+            String isbn = String.valueOf(tblCopies.getModel().getValueAt(index, 1));
+            String Cop_Id = String.valueOf(tblCopies.getModel().getValueAt(index, 0));
+            int success = Copies.Copies_DeleteCopiesByCopyId(Cop_Id);
+            MessageHandle.showMessage(MessageHandle.Obj_Book, MessageHandle.Action_delete, success);
+            DefaultTableModel tbm2 = Copies.getCopyListByISBN(isbn);
+            tblCopies.setModel(tbm2);
+            UIHelper.hideColumnOfTable(tblCopies, 0);
         }
-        
-    }//GEN-LAST:event_btnDeleteCopyActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(BookList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(BookList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(BookList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(BookList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new BookList().setVisible(true);
-//            }
-//        });
-//    }
+    }//GEN-LAST:event_btnDeleteCopyActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCopies;
@@ -1279,7 +1222,6 @@ public class BookList extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void checkFormBeforeSave() {
-        //Validate     
 
         if (txtTitle.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Book Title do not NULL");
@@ -1290,7 +1232,6 @@ public class BookList extends javax.swing.JFrame {
             txtTitle.requestFocus();
             return;
         }
-
         if (txtAuthor.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Author do not NULL");
             txtAuthor.requestFocus();
@@ -1300,7 +1241,6 @@ public class BookList extends javax.swing.JFrame {
             txtAuthor.requestFocus();
             return;
         }
-
         if (txtPublisher.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Publisher do not NULL");
             txtPublisher.requestFocus();
@@ -1310,19 +1250,16 @@ public class BookList extends javax.swing.JFrame {
             txtPublisher.requestFocus();
             return;
         }
-
         if (cboCategory.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "Please choose a category");
             cboCategory.requestFocus();
             return;
         }
-
         if (cboLang.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "Please choose a language");
             cboLang.requestFocus();
             return;
         }
-
         String pattern = "(\\d)";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(txtPrice.getText());

@@ -92,7 +92,6 @@ public class Db {
 
             } catch (Exception ex) {
                 db = null;
-                //System.out.println("DB null!");
             }
         }
         return db;
@@ -109,7 +108,6 @@ public class Db {
             p.setProperty("username", db.getUsername());
             p.setProperty("password", db.getPassword());
             p.store(file, "Nguyen Duc Tung");
-
         } catch (IOException ex) {
             return 2;
         }

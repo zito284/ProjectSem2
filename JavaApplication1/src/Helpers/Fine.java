@@ -14,9 +14,9 @@ import javax.swing.table.TableModel;
  * @author Zito
  */
 public class Fine {
-    private static final int payPercentPerDay = 1;
+    
     public static double calculateFine(int daylate,double priceBook){
-        double result = daylate * (payPercentPerDay * priceBook / 100);
+        double result = daylate * 0.1;
         return result > priceBook ? priceBook : result;                
     }
     public static String calculateTotal(JTable table,int columnPrice){
@@ -27,7 +27,7 @@ public class Fine {
             result +=  Float.valueOf(model.getValueAt(i, columnPrice).toString()) ;
         }   
         result = Math.round(result*100.0)/100.0;
-        DecimalFormat df = new DecimalFormat("###.## $");
+        DecimalFormat df = new DecimalFormat("$ ###.##");
         
         return df.format(result);
     }

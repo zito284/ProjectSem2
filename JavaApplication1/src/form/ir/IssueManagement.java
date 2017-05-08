@@ -55,19 +55,17 @@ public class IssueManagement extends javax.swing.JFrame {
     // </editor-fold>     
     public IssueManagement() {
         initComponents();
+        this.setTitle("Issue Management");
         UIHelper.bindBackground(pnlIssue);
-
         ir = new IRBooks();
-        Cop_IdList = new HashMap<>(20);
-        Cop_IdList_Issued = new HashMap<>(20);
+        Cop_IdList = new HashMap<>(5);
+        Cop_IdList_Issued = new HashMap<>(5);
         initForm();
         initMember();
         initCategory();
         initTblIssuing();
         initTblCopies();
         initPopUpWindow();
-
-        //loadBook("");
     }
 
     private void loadBook(String ISBN) {
@@ -79,11 +77,8 @@ public class IssueManagement extends javax.swing.JFrame {
         lblTitle.setText(book.Book_Title);
         lblISBN.setText(book.Book_ISBN);
         lblFree.setText(String.valueOf(book.Book_Count));
-
-        //load image book
         ImageIcon icon = new ImageIcon(book.Book_ImageFile);
         lblImgBook.setIcon(new ImageIcon(icon.getImage().getScaledInstance(lblImgBook.getWidth(), lblImgBook.getHeight(), SCALE_SMOOTH)));
-        lblImgBook.setBounds(0, 0, 140, 140);
     }
 
     private void loadMember() {
@@ -99,15 +94,12 @@ public class IssueManagement extends javax.swing.JFrame {
             lblStatusMem.setText(mem.Mem_Status ? "Active" : "Inactive");
             lblRegisterDate.setText(mem.Mem_CreateDate);
             lblNumberBookIssued.setText(String.valueOf(mem.Mem_CountIssued));
-            //load image member
             ImageIcon icon = new ImageIcon(mem.Mem_ImageFile);
             lblImgMember.setIcon(icon);
             lblImgMember.setIcon(new ImageIcon(icon.getImage().getScaledInstance(lblImgMember.getWidth(), lblImgMember.getHeight(), SCALE_SMOOTH)));
-            lblImgMember.setBounds(0, 0, 140, 140);
-            //rebind data tbl issued
             initPopUpWindow();
             countAllow = mem.Mem_CountIssued + tblIssuing.getRowCount();
-            if (countAllow > 20) {
+            if (countAllow > 5) {
                 ((DefaultTableModel) tblIssuing.getModel()).setNumRows(0);
             }
         } else {
@@ -116,7 +108,6 @@ public class IssueManagement extends javax.swing.JFrame {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Process function in Form">
     private void openPopUp(JLabel lbl) {
         Point p = lbl.getLocationOnScreen();
         p.y += lbl.getHeight();
@@ -147,28 +138,24 @@ public class IssueManagement extends javax.swing.JFrame {
         DefaultTableModel tblM = (DefaultTableModel) tblIssuing.getModel();
         tblM.addRow(new Object[]{
             countSTT++,
-             irb.book.Book_ISBN,
-             irb.book.Book_Title,
-             irb.book.Cat_Name,
-             irb.copy.Cop_No});
+            irb.book.Book_ISBN,
+            irb.book.Book_Title,
+            irb.book.Cat_Name,
+            irb.copy.Cop_No});
         tblIssuing.setModel(tblM);
         Cop_IdList.put(irb.copy.Cop_Id, irb.copy.Cop_Id);
     }
 
-    // </editor-fold>   
     // <editor-fold defaultstate="collapsed" desc="Init Component when load form">
     private void initMember() {
         lblMemberNo.setText("");
         lblFullname.setText("");
         lblPhone.setText("");
-        //lblMemberDepartment.setText("");
         lblRegisterDate.setText("");
         lblStatusMem.setText("");
         lblNumberBookIssued.setText("");
-        //load image member
         lblImgMember.setIcon(new ImageIcon(IssueManagement.class
                 .getResource(SysVar.image_member_defaut)));
-        lblImgMember.setBounds(0, 0, 140, 140);
     }
 
     private void initTblIssuing() {
@@ -193,14 +180,12 @@ public class IssueManagement extends javax.swing.JFrame {
             tblIssued.setModel(tbm);//));
         }
         tblIssued.setPreferredSize(new Dimension(750, 100));
-        UIHelper.setColumnWidth(tblIssued, new int[]{50, 120, 120, 170, 170, 120});
         window.add(new JScrollPane(tblIssued));
         window.setEnabled(false);
 
     }
 
     private void initCategory() {
-//        cbCategory.setModel(Categories.Categories_getCategoryCombobox());
     }
 
     private void initForm() {
@@ -929,21 +914,19 @@ public class IssueManagement extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    // <editor-fold defaultstate="collapsed" desc="Event in Form">
     private void txtMemNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMemNoActionPerformed
-        // TODO add your handling code here:
+
         loadMember();
     }//GEN-LAST:event_txtMemNoActionPerformed
 
     private void tblCopiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCopiesMouseClicked
-        // TODO add your handling code here:
+
         int index = tblCopies.getSelectedRow();
         boolean status = index != -1;
 
         if (evt.getClickCount() == 2) {
             if (status) {
-                if (countAllow < 20) {
-                    //get ISBN on table
+                if (countAllow < 5) {
                     String ISBN = String.valueOf(tblCopies.getModel().getValueAt(index, 0));
                     ir.book = Books.getByISBN(ISBN);
                     ir.copy = Copies.getLastestIsFree(ir.book.Book_ISBN, Cop_IdList);
@@ -964,12 +947,10 @@ public class IssueManagement extends javax.swing.JFrame {
                 String ISBN = String.valueOf(tblCopies.getModel().getValueAt(index, 0));
                 loadBook(ISBN);
             }
-            // 
         }
     }//GEN-LAST:event_tblCopiesMouseClicked
 
     private void tblIssuingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblIssuingMouseClicked
-        // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
             JTable target = (JTable) evt.getSource();
             int index = target.getSelectedRow();
@@ -989,7 +970,6 @@ public class IssueManagement extends javax.swing.JFrame {
         tblIssuing.setModel(tblM);
     }
     private void btSearchMemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchMemActionPerformed
-        // TODO add your handling code here:
         MemberSearch memberSearchBox = new MemberSearch(this, true);
         memberSearchBox.setVisible(true);
         txtMemNo.setText(memberSearchBox.getPopUpData());
@@ -997,18 +977,15 @@ public class IssueManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btSearchMemActionPerformed
 
     private void btIssueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIssueActionPerformed
-        // TODO add your handling code here:
         boolean flag = true;
         int result = -1;
         if (tblIssuing.getRowCount() > 0) {
             if (selectedMember != null) {
                 String memId = selectedMember.Mem_Id;
                 for (int i = 0; i < tblIssuing.getRowCount(); i++) {
-                    //string cop no in tblissuing
                     String copNo = String.valueOf(tblIssuing.getModel().getValueAt(i, 4));
                     Cop_IdList_Issued.put(copNo, copNo);
                 }
-                // StringHelper.getStringByMap(Cop_IdList_Issued)
                 result = IRBooks.IssueBook(Cop_IdList_Issued, memId);
                 if (result == 1) {
                     ((DefaultTableModel) tblIssuing.getModel()).setNumRows(0);
@@ -1024,12 +1001,10 @@ public class IssueManagement extends javax.swing.JFrame {
             MessageHandle.showError("Please choose Copy from Book to continue!!");
         }
 
-        //  else
 
     }//GEN-LAST:event_btIssueActionPerformed
 
     private void btResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btResetActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btResetActionPerformed
 
@@ -1071,29 +1046,25 @@ public class IssueManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btRemoveActionPerformed
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
-        // TODO add your handling code here:
-        int index=tblCopies.getSelectedRow();
-        if (index!=-1)
-        {
-                if (countAllow < 20) {
-                    //get ISBN on table
-                    String ISBN = String.valueOf(tblCopies.getModel().getValueAt(index, 0));
-                    ir.book = Books.getByISBN(ISBN);
-                    ir.copy = Copies.getLastestIsFree(ir.book.Book_ISBN, Cop_IdList);
-                    if (ir.copy != null) {
-                        bindTblIssue(ir);
-                        setCountSttOnTblIssuing();
-                        ++countAllow;
-                        validate();
-                    } else {
-                        MessageHandle.showError("Not exists Copy");
-                    }
+        int index = tblCopies.getSelectedRow();
+        if (index != -1) {
+            if (countAllow < 5) {
+                String ISBN = String.valueOf(tblCopies.getModel().getValueAt(index, 0));
+                ir.book = Books.getByISBN(ISBN);
+                ir.copy = Copies.getLastestIsFree(ir.book.Book_ISBN, Cop_IdList);
+                if (ir.copy != null) {
+                    bindTblIssue(ir);
+                    setCountSttOnTblIssuing();
+                    ++countAllow;
+                    validate();
                 } else {
-                    MessageHandle.showError("Not Allow total issue more than 20 book");
+                    MessageHandle.showError("Not exists Copy");
                 }
+            } else {
+                MessageHandle.showError("Not Allow total issue more than 5 book");
+            }
         }
     }//GEN-LAST:event_btAddActionPerformed
-    // </editor-fold>
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

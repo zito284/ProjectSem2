@@ -27,10 +27,6 @@ import javax.swing.table.DefaultTableModel;
  * @author Zito
  */
 public class ReturnManagement extends javax.swing.JFrame {
-
-    /**
-     * Creates new form ReturnManagement
-     */
     Books glBook;
     public String Member_No;
     private HashMap<String, String> Cop_IRDetail_Return;
@@ -41,6 +37,7 @@ public class ReturnManagement extends javax.swing.JFrame {
 
     public ReturnManagement() {
         initComponents();
+        this.setTitle("Return Management");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initForm();
         btSearchMem.setIcon(new ImageIcon(IssueManagement.class
@@ -51,9 +48,6 @@ public class ReturnManagement extends javax.swing.JFrame {
         UIHelper.bindBackground(pnlReturn);
         initTblReturn();
         initMember();
-        //  loadBook();
-        //  loadIRBook();
-        //  loadMember();
     }
 
     private void initMember() {
@@ -62,8 +56,6 @@ public class ReturnManagement extends javax.swing.JFrame {
         lblPhone.setText("");
         lblRegisterDate.setText("");
         lblStatusMem.setText("");
-
-        //load image member
         lblImgMember.setIcon(new ImageIcon(IssueManagement.class.getResource(SysVar.image_member_defaut)));
         lblImgMember.setBounds(0, 0, 140, 140);
     }
@@ -117,15 +109,10 @@ public class ReturnManagement extends javax.swing.JFrame {
             lblMemberNo.setText(mem.Mem_No);
             lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
             lblPhone.setText(mem.Mem_Phone);
-
             lblStatusMem.setText(mem.Mem_Status ? "Active" : "Inactive");
             lblRegisterDate.setText(mem.Mem_CreateDate);
-
-            //load image member
             ImageIcon icon = new ImageIcon(mem.Mem_ImageFile);
             lblImgMember.setIcon(new ImageIcon(icon.getImage().getScaledInstance(lblImgMember.getWidth(), lblImgMember.getHeight(), SCALE_SMOOTH)));
-            lblImgMember.setBounds(0, 0, 140, 140);
-            //rebind data tbl issued
         } else {
             MessageHandle.showError("Can not find Member with No: " + mem_No);
         }
@@ -492,14 +479,12 @@ public class ReturnManagement extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCloseActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btCloseActionPerformed
 
     private void btReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReturnActionPerformed
         int row = tblReturn.getRowCount();
         if (row > 0) {
-            boolean hasFine=false;
             for (int i = 0; i < row; i++) {
                 String IRDetail = String.valueOf(tblReturn.getModel().getValueAt(i, 0));
                 Cop_IRDetail_Return.put(IRDetail, IRDetail);

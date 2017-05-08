@@ -73,14 +73,6 @@ public class SqlHelper {
         return tm;
     }
 
-    public static DefaultTableModel getDefaultTableModelWithCheckbox(String cmdText, Object... cmdParams) {
-        ResultSet rs = getResultSet(cmdText, cmdParams);
-        DefaultTableModel tm = getDefaultTableModelWithCheckboxDefaultValue(rs);
-        closeConnection(rs);
-        return tm;
-    }
-//use for insert,update,delete
-
     public static int executeNonQuery(String cmdText) {
         CallableStatement stmt = getCallableStatement(cmdText);
         if (stmt == null) {
@@ -251,11 +243,6 @@ public class SqlHelper {
             pstmt = conn.prepareStatement(cmdText,
                     ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
-//            int i = 1;
-//            for (Object item : cmdParams){
-//                pstmt.setObject(i, item);
-//                i++;
-//            }
             return pstmt;
         } catch (SQLException ex) {
             Logger.getLogger(SqlHelper.class.getName()).log(Level.SEVERE, null, ex);
@@ -303,7 +290,6 @@ public class SqlHelper {
             } else if (obj instanceof HashMap) {
                 strSql.append(StringHelper.getStringByMap((HashMap) obj));
             }
-            // strSql.append("?");
             t++;
         }
     }
@@ -351,68 +337,6 @@ public class SqlHelper {
                 } else {
                     return Object.class;
                 }
-            }
-        };
-        return model;
-    }
-
-    private static DefaultTableModel getDefaultTableModelWithCheckboxDefaultValue(ResultSet rs) {
-        if (rs == null) {
-            return null;
-        }
-        ResultSetMetaData rsm;
-        String[] columnNames = null;
-        Object[][] data = null;
-        DefaultTableModel model;
-        try {
-
-            rsm = rs.getMetaData();
-            columnNames = new String[rsm.getColumnCount() + 1];
-            for (int i = 0; i < rsm.getColumnCount() + 1; i++) {
-                if (i == 0) {
-                    columnNames[i] = "√ Select all";
-                } else {
-                    columnNames[i] = rsm.getColumnName(i);
-                }
-
-            }
-            int row = 0;
-            int colum = 0;
-            int columCount = columnNames.length;
-            rs.last();
-            int rowCount = rs.getRow();
-            rs.beforeFirst();
-            data = new Object[rowCount][columCount];
-            while (rs.next()) {
-                for (colum = 0; colum < columCount; colum++) {
-                    if (colum == 0) {
-                        data[row][colum] = Boolean.FALSE;
-                    } else {
-                        data[row][colum] = rs.getObject(colum);
-                    }
-                }
-                row++;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SqlHelper.class.getName()).log(Level.SEVERE, null,
-                    ex);
-            return null;
-        }
-        model = new DefaultTableModel(data, columnNames) {
-            @SuppressWarnings("unchecked")
-            @Override
-            public Class<?> getColumnClass(int c) {
-                if (c == 0) {
-                    return Boolean.class;
-                } else {
-                    return Object.class;
-                }
-
-//                if (dataVector.isEmpty() == false && getValueAt(0, c) != null){
-//                    return getValueAt(0, c).getClass();
-//                } else{
-//                    return Object.class;
-//                }
             }
         };
         return model;

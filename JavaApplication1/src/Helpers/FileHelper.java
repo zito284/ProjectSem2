@@ -53,37 +53,24 @@ public class FileHelper {
 
        try {
 
-           BufferedInputStream buffy = new BufferedInputStream(new FileInputStream(from));
-           BufferedOutputStream wright = new BufferedOutputStream(new FileOutputStream(to));
+           BufferedInputStream bis = new BufferedInputStream(new FileInputStream(from));
+           BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(to));
            byte[] cbuf = new byte[1024];
            long bytesRead = 0, bytesTotal = from.length();
            int perc = 0;
-           for (int c = 0, nb = 0; (nb = buffy.read(cbuf)) >= 0; ++c) {
+           for (int c = 0, nb = 0; (nb = bis.read(cbuf)) >= 0; ++c) {
                bytesRead += nb;
-               wright.write(cbuf, 0, nb);
-
+               bos.write(cbuf, 0, nb);
                if (c % 10 == 0) {
-
-                   wright.flush();
-
+                   bos.flush();
                }
-
            }
-
-           buffy.close();
-
-           wright.flush();
-
-           wright.close();
-
+           bis.close();
+           bos.flush();
+           bos.close();
            return true;
-
- 
-
        } catch (Exception e) {
-
            return false;
-
        }
 
    }

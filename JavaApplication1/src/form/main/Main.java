@@ -28,9 +28,7 @@ import javax.swing.Timer;
  */
 public class Main extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Main
-     */
+
     private String[] imageFile={"home.png","member_management.png","book_management.png","ir_management.png","fine_management.png"};
     SimpleDateFormat simpleDate = new SimpleDateFormat("EEE, dd/MM/yyyy");
     SimpleDateFormat simpleTime = new SimpleDateFormat("HH:mm:ss");
@@ -49,15 +47,13 @@ public class Main extends javax.swing.JFrame {
      
         setContentPane(contentpane);
         contentpane.setBackground(Color.BLACK);
-        
-        //set panel Home        
+             
         pnlHome.setLayout(null);
         jTabbedPane1.setBounds(5, 5, 809, 620);
         
         lblWelcome.setFont(new Font("Droid Sans", Font.BOLD, 36));
         lblWelcome.setForeground(new Color(255, 255, 255));
         lblWelcome.setBounds(200, 261, 573, 63);       
-     //background wall
         
         UIHelper.bindBackground(contentpane,"/image/background.png");
         try {

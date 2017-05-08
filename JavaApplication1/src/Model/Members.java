@@ -31,7 +31,6 @@ public class Members {
     public Members() {
     }
 
-    //Zito
     public static Members getIRCountInformation(String mem_No) {
         Members mem = null;
         ResultSet rs = null;

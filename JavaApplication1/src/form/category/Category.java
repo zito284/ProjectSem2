@@ -40,14 +40,8 @@ public class Category extends javax.swing.JFrame {
     }
     
     public void start(){
-        setNormalMode();
-        
+        setNormalMode();        
         tblListCate.setModel(Model.Categories.Categories_getCategoryListWithBookNumber());
-        tblListCate.getColumnModel().getColumn(0).setMinWidth(0);
-        tblListCate.getColumnModel().getColumn(0).setMaxWidth(0);
-        tblListCate.getColumnModel().getColumn(0).setWidth(0);
-        tblListCate.getColumnModel().getColumn(1).setPreferredWidth(90);
-        tblListCate.getColumnModel().getColumn(2).setPreferredWidth(5);
     }
     
     public void setNormalMode(){
@@ -168,7 +162,7 @@ public class Category extends javax.swing.JFrame {
         btnSaveUpdateCate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Book Managment");
+        setTitle("Category Management\n");
         setMinimumSize(new java.awt.Dimension(820, 515));
         setResizable(false);
 
@@ -426,11 +420,6 @@ public class Category extends javax.swing.JFrame {
         }
         setAddNewMode();
         tblListCate.setModel(Model.Categories.Categories_getCategoryListWithBookNumber());
-        tblListCate.getColumnModel().getColumn(0).setMinWidth(0);
-        tblListCate.getColumnModel().getColumn(0).setMaxWidth(0);
-        tblListCate.getColumnModel().getColumn(0).setWidth(0);
-        tblListCate.getColumnModel().getColumn(1).setPreferredWidth(90);
-        tblListCate.getColumnModel().getColumn(2).setPreferredWidth(5);
     }//GEN-LAST:event_btnSaveCateActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -489,11 +478,6 @@ public class Category extends javax.swing.JFrame {
         }
         setAddNewMode();
         tblListCate.setModel(Model.Categories.Categories_getCategoryListWithBookNumber());
-        tblListCate.getColumnModel().getColumn(0).setMinWidth(0);
-        tblListCate.getColumnModel().getColumn(0).setMaxWidth(0);
-        tblListCate.getColumnModel().getColumn(0).setWidth(0);
-        tblListCate.getColumnModel().getColumn(1).setPreferredWidth(90);
-        tblListCate.getColumnModel().getColumn(2).setPreferredWidth(5);
     }//GEN-LAST:event_btnSaveUpdateCateActionPerformed
 
     

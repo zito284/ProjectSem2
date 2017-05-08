@@ -46,7 +46,6 @@ public class MemberSearch extends javax.swing.JDialog {
         lblRegisterDate.setText("");
         lblDepartment.setText("");
         lblMemNo.setText("");
-        //load image member
         lblImgMember.setIcon(new ImageIcon(MemberSearch.class
                         .getResource(SysVar.image_member_defaut)));        
         lblImgMember.setBounds(0, 0, 140, 140);
@@ -66,10 +65,8 @@ public class MemberSearch extends javax.swing.JDialog {
         lblRegisterDate.setText(mem.Mem_CreateDate);
         lblDepartment.setText(mem.Mem_Dep);
         lblMemNo.setText(mem.Mem_No);
-        //load image member
         ImageIcon icon = new ImageIcon(mem.Mem_ImageFile);
         lblImgMember.setIcon(new ImageIcon(icon.getImage().getScaledInstance(lblImgMember.getWidth(), lblImgMember.getHeight(), SCALE_SMOOTH)));        
-        lblImgMember.setBounds(0, 0, 140, 140);
         
     }
     private void initDialog(){

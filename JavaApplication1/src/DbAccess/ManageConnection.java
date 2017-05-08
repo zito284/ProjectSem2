@@ -18,11 +18,10 @@ import java.util.logging.Logger;
  * @author Zito
  */
 public class ManageConnection {
-   
 
     private static String connectionString(String driver) {
         StringBuilder sb = new StringBuilder();
-        
+
         Db db = Db.getInfoDB();
         if (db != null) {
             if (driver.equalsIgnoreCase(SysVar.driver_MSSQL)) {
@@ -43,16 +42,14 @@ public class ManageConnection {
             sb.append(";User=").append(db.getUsername())
                     .append(";Password=").append(db.getPassword());
         }
-         return sb.toString();
+        return sb.toString();
 
     }
 
     public static Connection getConnection(String driver) {
         try {
-            Class.forName(driver);      
-            //System.out.println(connectionString(driver));
+            Class.forName(driver);
             return DriverManager.getConnection(connectionString(driver));
-
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ManageConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {

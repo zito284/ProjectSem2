@@ -17,10 +17,6 @@ import javax.swing.JLabel;
  * @author Zito
  */
 public class Login extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Login
-     */
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
@@ -184,8 +180,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btSettingActionPerformed
 
     private void btExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExitActionPerformed
-    
-        System.exit(0);
+ System.exit(0);
     }//GEN-LAST:event_btExitActionPerformed
     private void callLogin(){
         if (txtUsername.getText().equalsIgnoreCase("admin") && txtPassword.getText().equals("1"))
@@ -194,19 +189,16 @@ public class Login extends javax.swing.JFrame {
             this.dispose();
         }
         else MessageHandle.showError("Login failed");
-
     }
     private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
         callLogin();
     }//GEN-LAST:event_btLoginActionPerformed
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
-        // TODO add your handling code here:
         callLogin();
     }//GEN-LAST:event_txtUsernameActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
         callLogin();
     }//GEN-LAST:event_txtPasswordActionPerformed
 
